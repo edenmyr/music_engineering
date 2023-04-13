@@ -90,5 +90,3 @@ print(exFracs)
 # generera lista med inverterade förhållanden
 # ta fram skillnad i cents
 # spara cent för alla toner, exakta och approximerade
-# fixa github för koden
-# Emil heter ellenius på github

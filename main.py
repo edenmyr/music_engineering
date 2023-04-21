@@ -14,7 +14,7 @@ def genNotes(n, octFreq=3):
 
 def easyFractions(N,eps=1e-6):
     """
-    Code for finding the most basic fractions and sorting them. 
+    Code for finding the most basic fractions. 
     Input:
     - N: Highest value for the denominator
     - eps=1e-6: Tolerance for comparison
@@ -52,13 +52,13 @@ def closestRelation(notes, fractions,cent_tol=25):
            (should prob. add that step to this function and just return exactFracs for the elems)
     """
     closest = []
-    deviation = []
+    cent_deviation = []
     idx = []
     for note in notes:
         for f in fractions:
             if np.abs(1200 * np.log(note/f)/np.log(2)) < cent_tol:
                 closest.append(f)
-                deviation.append(note-f)
+                cent_deviation.append(1200 * np.log(f/note))
                 idx.append(fractions.index(f))
                 break
         if len(closest) != notes.index(note)+1:
@@ -66,29 +66,23 @@ def closestRelation(notes, fractions,cent_tol=25):
         #else:
         #    print("Found for note " + str(note))
     #devCents = deviation
-    return closest, deviation, idx
+    return closest, cent_deviation, idx
 
 notes = genNotes(8)
 print(notes)
 
 frac, exactFrac = easyFractions(20)
-#print(exactFrac)
-#print(frac)
+
 invFrac = [1/f for f in frac]
 
 closest, dev, idx = closestRelation(notes, invFrac)
 print(closest)
-#print(dev)
-#print(idx)
 
 exFracs = [exactFrac[i] for i in idx]
 print(exFracs)
-
+print(dev)
 #tol = 2^20/1200 # given by deviation of 20 cents, as in ordinary 12 tone 
 
 
 # generera lista med inverterade förhållanden
-# ta fram skillnad i cents
 # spara cent för alla toner, exakta och approximerade
-
-# test

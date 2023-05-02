@@ -38,7 +38,7 @@ def easyFractions(N,eps=1e-6):
     #print(sortedExactFrac)
     return frac, exactFrac#sortedFrac, sortedExactFrac
 
-def closestRelation(notes, fractions,cent_tol=25):
+def closestRelation(notes,cent_tol=25, easyFracLim=25):
     """
     Function for finding the closest fraction relations for every note in the octave.
     Input:
@@ -54,6 +54,10 @@ def closestRelation(notes, fractions,cent_tol=25):
     closest = []
     cent_deviation = []
     idx = []
+
+    frac, exactFrac = easyFractions(easyFracLim)
+    fractions = [1/f for f in frac]
+
     for note in notes:
         for f in fractions:
             if np.abs(1200 * np.log(note/f)/np.log(2)) < cent_tol:
@@ -66,21 +70,19 @@ def closestRelation(notes, fractions,cent_tol=25):
         #else:
         #    print("Found for note " + str(note))
     #devCents = deviation
-    return closest, cent_deviation, idx
+    exFracs = [exactFrac[i] for i in idx]
+    return closest, cent_deviation, idx, exFracs
 
-notes = genNotes(8)
+notes = genNotes(13)
 print(notes)
 
-frac, exactFrac = easyFractions(20)
 
-invFrac = [1/f for f in frac]
+#closest, dev, idx = closestRelation(notes, cent_tol=15,easyFracLim=50)
+#print(closest)
 
-closest, dev, idx = closestRelation(notes, invFrac)
-print(closest)
 
-exFracs = [exactFrac[i] for i in idx]
-print(exFracs)
-print(dev)
+#print(exFracs)
+#print(dev)
 #tol = 2^20/1200 # given by deviation of 20 cents, as in ordinary 12 tone 
 
 

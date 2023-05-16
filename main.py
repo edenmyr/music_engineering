@@ -9,7 +9,7 @@ def genNotes(n, octFreq=3):
     Output: 
     - notes: list of 
     """
-    notes = [3**(i/n) for i in range(n)]
+    notes = [octFreq**(i/n) for i in range(n)]
     return notes
 
 def easyFractions(N,eps=1e-6):
